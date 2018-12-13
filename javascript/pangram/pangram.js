@@ -1,11 +1,14 @@
 export function isPangram(aString) {
-  const characters = 'abcdefghijklmnopqrstuvwxyz';
-  const list = characters.split('');
-  let count = 0;
-  list.forEach((element) => {
-    if (aString.toLowerCase().includes(element)) {
-      count += 1;
-    }
-  });
-  return (count === 26);
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  const allcharacters = {};
+  aString.toLowerCase()
+    .replace(/[^a-z]/ig, '')
+    .split('')
+    .forEach((character) => {
+      allcharacters[character] = allcharacters[character] || 0;
+      allcharacters[character] += 1;
+    });
+
+  return aString.length > 0
+  && Object.keys(allcharacters).sort().every((value, index) => value === alphabet[index]);
 }
